@@ -126,7 +126,46 @@ Below is the required packages to be installed.
    !pip uninstall -y transformers accelerate
    !pip install transformers accelerate
    ```
+### Example of loading saved models
+* Pickle file
+  ```py
+  from sklearn.metrics import f1_score
 
+  filename = 'your_path_here/bernoulli_model.pkl'
+  loaded_model = pickle.load(open(filename, 'rb'))
+  f1_value = f1_score(y_test, loaded_model.predict(X_test), average='macro')
+  print(f1_value)
+  ```
+* JSON and HDF5 files
+  ```py
+  from tensorflow.keras.models import model_from_json
+  
+  filename = 'your_path_here/model_cnn.json'
+  json_file = open(filename, 'r')
+  loaded_model_json = json_file.read()
+  json_file.close()
+  loaded_model = model_from_json(loaded_model_json)
+  
+  # load weights into new model
+  weigth = 'your_path_here/model_cnn.h5'
+  loaded_model.load_weights(weigth)
+
+  precision = keras.metrics.Precision()
+  recall = keras.metrics.Recall()
+
+  # evaluate loaded model on test data
+  loaded_model.compile(loss='categorical_crossentropy', 
+                        optimizer='rmsprop', 
+                        metrics=[precision, recall])
+                        
+  loss, precision, recall = loaded_model.evaluate(X_test, y_test)
+  print(f"Test loss: {loss:.3f}") 
+  print(f"Test precision: {precision:.3f}")
+  print(f"Test recall: {recall:.3f}")
+  test_f1 = 2 * (precision * recall) / (precision + recall)
+  print(f"Test f1 score: {test_f1:.3f}")
+  ```
+ 
 
 <!-- RESULT -->
 ## Result
