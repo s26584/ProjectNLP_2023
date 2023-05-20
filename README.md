@@ -103,6 +103,7 @@ Below is the required packages to be installed.
 
 - To use your Google Drive, please customize the path name <i>'drive/MyDrive/ZUM/project1/'</i> in the code.
 - To use the saved models, please load files from /saved_models/ in this project repo.
+- `tweets_en.csv` and `labeled_dataset.csv` in /dataset/ are compressed as zip and 7z file respectively. Please extract them before using.
 - <b>WARNING</b>: The original dataset was created by using `snscrape` in March, 2023. However, <b>snscrape for Twitter is not available since April, 2023</b>. To train and test your model, please use the datsets in /dataset/ in this project repo.
 
 ### Installation
